@@ -6,10 +6,11 @@
 
 class Estrategia {
 	private:
-    Sensores objetoSensor;
+    		Sensores objetoSensor;
 	public:
 		void executarEstrategia();
 
+		void chamarMenu();
 		void passarObstaculo();
 		void fazerVerde();
 		void subirRampa();

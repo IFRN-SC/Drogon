@@ -17,3 +17,10 @@ bool Sensores::viuVerde() {
 bool Sensores::viuRampa() {
 	return false;
 }
+
+void Sensores::setarCinzas() {
+	maisDir.setCinza(maisDir.getMaiorPreto(), maisDir.getMenorBranco());
+	dir.setCinza(dir.getMaiorPreto(), dir.getMenorBranco());
+	esq.setCinza(esq.getMaiorPreto(), esq.getMenorBranco());
+	maisEsq.setCinza(maisEsq.getMaiorPreto(), maisEsq.getMenorBranco());
+}

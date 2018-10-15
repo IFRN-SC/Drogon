@@ -1,4 +1,3 @@
-#include <robo_hardware2.h>
 #include "Estrategia.h"
 
 
@@ -16,4 +15,12 @@ void Estrategia::executarEstrategia() {
 		this->movimentar();
 	}
 
+}
+
+void Estrategia::movimentar() {
+		
+}
+
+void Estrategia::chamarMenu() {
+	
 }
