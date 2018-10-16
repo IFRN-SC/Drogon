@@ -2,6 +2,7 @@
 #define MENUCALIBRACAO_H
 
 #include "Calibracao.h"
+#include <Arduino.h>
 
 class MenuCalibracao {
 	private:

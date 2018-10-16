@@ -1,5 +1,5 @@
-#include "MenuCalibracao.h";
-
+#include "MenuCalibracao.h"
+// TIRAR OS +
 
 void MenuCalibracao::chamarMenu() {
 	while (respostaMenu != 'Q') {
@@ -15,8 +15,15 @@ void MenuCalibracao::chamarMenu() {
 		if (respostaMenu == 'P') {
 			while (respostaMenuDois != 'Q') {
 				Serial.println(F("+esq          esq          dir          +dir"));
-				Serial.println(F(maisEsq.lerValorSensorMaisEsq() + "          " + esq.lerValorSensorEsq() + "          " + 					dir.lerValorSensorDir() + "          " + maisDir.lerValorSensorMaisDir());
-				Serial.println(F("");
+				Serial.print(robo.lerSensorLinhaMaisEsq());
+				Serial.print(F("          "));
+				Serial.print(robo.lerSensorLinhaEsq());
+				Serial.print(F("          ")); 
+				Serial.print(robo.lerSensorLinhaDir());
+				Serial.print(F("          "));
+				Serial.println(robo.lerSensorLinhaMaisDir());
+
+				Serial.println(F(""));
 				Serial.println(F("----------------------------------------"));
 				Serial.println(F("Pressione P para ler os valores de PRETO"));
 				Serial.println(F("Pressione Q para voltar para o menu principal"));
@@ -37,8 +44,15 @@ void MenuCalibracao::chamarMenu() {
 		}else if (respostaMenu == 'B') {
 			while (respostaMenuDois != 'Q') {		
 				Serial.println(F("+esq          esq          dir          +dir"));
-				Serial.println(F(maisEsq.lerValorSensorMaisEsq() + "          " + esq.lerValorSensorEsq() + "          " + 					dir.lerValorSensorDir() + "          " + maisDir.lerValorSensorMaisDir());
-				Serial.println(F("");
+				Serial.print(robo.lerSensorLinhaMaisEsq());
+				Serial.print(F("          "));
+				Serial.print(robo.lerSensorLinhaEsq());
+				Serial.print(F("          ")); 
+				Serial.print(robo.lerSensorLinhaDir());
+				Serial.print(F("          "));
+				Serial.println(robo.lerSensorLinhaMaisDir());
+
+				Serial.println(F(""));
 				Serial.println(F("----------------------------------------"));
 				Serial.println(F("Pressione B para ler os valores de BRANCO"));
 				Serial.println(F("Pressione Q para voltar para o menu principal"));

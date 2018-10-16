@@ -3,19 +3,27 @@
 
 #include <robo_hardware2.h>
 #include "Refletancia.h"
+#include "Calibracao.h"
 
-class Sensores : public Calibracao {
+class Sensores: public Calibracao {
 	private:
-		Refletancia maisEsq;
-		Refletancia esq;
-		Refletancia dir;	
-		Refletancia maisDir;	
+			
 	public:
 		void setarCinzas();
 			
 		bool viuObstaculo();
 		bool viuVerde();
 		bool viuRampa();
+
+		bool isMaisDirPreto();
+		bool isMaisEsqPreto();
+		bool isDirPreto();
+		bool isEsqPreto();
+
+		bool PP();
+		bool BB();
+		bool BP();
+		bool PB();
 };
 
 #endif

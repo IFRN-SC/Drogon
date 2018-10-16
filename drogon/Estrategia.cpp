@@ -18,7 +18,15 @@ void Estrategia::executarEstrategia() {
 }
 
 void Estrategia::movimentar() {
-		
+	if (objetoSensor.PP()) {
+		objetoMovimento.motoresFrente();
+	}else if (objetoSensor.BB()) {
+		objetoMovimento.motoresDireita();
+	}else if (objetoSensor.PB()) {
+		objetoMovimento.motoresEsquerda();
+	}else{
+		objetoMovimento.motoresFrente();
+	}
 }
 
 void Estrategia::chamarMenu() {

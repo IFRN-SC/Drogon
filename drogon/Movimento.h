@@ -3,7 +3,7 @@
 
 #include <robo_hardware2.h>
 #include "Arduino.h"
-
+#include "Sensores.h"
 
 class Movimento {
 	private:
@@ -15,6 +15,7 @@ class Movimento {
 		void motores90Esquerda();
 		void motores90Direita();
 		void subirRampa();
+
 };
 
 #endif
