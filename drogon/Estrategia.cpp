@@ -1,5 +1,24 @@
 #include "Estrategia.h"
 
+//VERIFICAR PONTAPE INICIAL
+
+void Estrategia::pontaPe() {
+	Serial.println(F("Aperte qualquer tecla para calibrar"));
+
+ 	for (int x = 1; x <= 20; x++) {
+    	delay(250);
+    	if (Serial.available()){
+   			objetoCalibracao.chamarMenu();
+   			cali.salvarCalibracao();
+   			break; 
+   		}
+
+   		if (x == 20){
+   			cali.lerCalibracao();
+   		}
+  	}
+}
+
 
 void Estrategia::executarEstrategia() {
 	if (objetoSensor.viuObstaculo()) {
@@ -20,15 +39,17 @@ void Estrategia::executarEstrategia() {
 void Estrategia::movimentar() {
 	if (objetoSensor.PP()) {
 		objetoMovimento.motoresFrente();
-	}else if (objetoSensor.BB()) {
-		objetoMovimento.motoresDireita();
-	}else if (objetoSensor.PB()) {
-		objetoMovimento.motoresEsquerda();
-	}else{
+	}
+
+	if (objetoSensor.BB()) {
 		objetoMovimento.motoresFrente();
 	}
-}
 
-void Estrategia::chamarMenu() {
-	
+	if (objetoSensor.PB()) {
+		objetoMovimento.motoresEsquerda();
+	}
+
+	if (objetoSensor.BP()){
+		objetoMovimento.motoresDireita();
+	}
 }

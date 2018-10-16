@@ -7,7 +7,7 @@
 
 
 bool Sensores::viuObstaculo() {
-	return robo.lerSensorSonarFrontal() < DISTANCIA_SONAR;
+	return false;
 }
 
 bool Sensores::viuVerde() {
