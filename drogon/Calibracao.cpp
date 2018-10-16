@@ -9,6 +9,10 @@ void Calibracao::chamarMenu() {
 		Serial.println(F("Q - Setar cinza e sair do menu de calibração"));
 		Serial.println(F("                                                  "));
 		Serial.println(F("--------------------------------------------------"));
+		
+		delay(1000);
+		
+		limparTela();
 	
 		respostaMenu = Serial.read();
 
@@ -61,6 +65,7 @@ void Calibracao::esperar() {
 	Serial.println(F("------------------------------------------------"));
 	Serial.println(F("Deseja usá-los na calibração?   S/N"));
 
+	delay(8000);
 	respostaValores = Serial.read();
 
 	if (respostaMenu == 'P' && respostaValores == 'S') {
@@ -79,9 +84,10 @@ void Calibracao::esperar() {
 
 	Serial.println(F("Deseja pegar mais valores ou sair?"));
 	Serial.println(F(""));
-	Serial.println(F("V - Continuar pegando valores"));
+	Serial.println(F("Qualquer coisa para continuar pegando valores"));
 	Serial.println(F("Q - Sair"));
 
+	delay(8000);
 	respostaMenuDois = Serial.read();
 	
 }
@@ -106,6 +112,10 @@ void Calibracao::mostrarValores() {
 		Serial.println(F(""));
 		Serial.println(F("--------------------------------------------------"));
 		Serial.println(F("Pressione V para pegar os valores"));
+
+		delay(250);
+
+		limparTela();
 
 	}
 }

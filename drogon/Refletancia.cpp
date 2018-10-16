@@ -9,8 +9,10 @@ float Refletancia::getMenorBranco() {
 	return this->menorBranco;	
 }
 
+
 float Refletancia::getCinza() {
-	return this->cinza;
+	return 50;
+//	return this->cinza;
 }
 
 void Refletancia::setMaiorPreto(float preto) {
