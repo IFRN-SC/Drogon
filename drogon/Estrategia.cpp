@@ -22,17 +22,18 @@ void Estrategia::executarEstrategia() {
 void Estrategia::movimentar() {
 	if (objetoSensor.PP()) {
 		objetoMovimento.motoresFrente();
-	}
-
-	if (objetoSensor.BB()) {
+	}else if (objetoSensor.BB()) {
 		objetoMovimento.motoresFrente();
-	}
-
-	if (objetoSensor.PB()) {
+	}else if (objetoSensor.PB()) {
 		objetoMovimento.motoresEsquerda();
-	}
-
-	if (objetoSensor.BP()){
+	}else{
 		objetoMovimento.motoresDireita();
 	}
+
+	
+
+	
+
+	
 }
+

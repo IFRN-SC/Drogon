@@ -4,18 +4,22 @@
 #include "Refletancia.h"
 class Calibracao {
 	private:
-  		char respostaValores = 'z';
-		char respostaMenu = 'z';
-		char respostaMenuDois = 'z';
+		char resposta = 'Z';
+  	char respostaValores = 'Z';
+		char respostaMenu = 'Z';
+		char respostaMenuDois = 'Z';
+
+		calibracao_dados cali;
 
 		float valorMaisEsq;
 		float valorEsq;
 		float valorDir;
 		float valorMaisDir;
 
-  	public:
+  public:
 		void calibrarPreto();
 		void calibrarBranco();
+		void pontaPe(); 
 
 		void limparTela();
 		void mostrarValores();
@@ -24,8 +28,8 @@ class Calibracao {
 		void chamarMenu();
 		
     
-  	protected:
-  		Refletancia dir, esq, maisDir, maisEsq;
+  protected:
+  	Refletancia dir, esq, maisDir, maisEsq;
 
 };
 

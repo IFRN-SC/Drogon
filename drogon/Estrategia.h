@@ -13,11 +13,9 @@ class Estrategia {
     		Calibracao objetoCalibracao;
     		Movimento objetoMovimento;
     		Sensores objetoSensor;
-
-    		calibracao_dados cali;
+    	
 	public:
 		void executarEstrategia();
-		void pontaPe();
 
 		void passarObstaculo();
 		void fazerVerde();

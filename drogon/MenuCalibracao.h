@@ -6,7 +6,7 @@
 
 class MenuCalibracao {
 	private:
-		Calibracao cali;
+
 		char respostaMenu = 'z';
 		char respostaMenuDois = 'z';
 	public:

@@ -1,6 +1,28 @@
 #include "Calibracao.h"
 #include <Arduino.h>
 
+void Calibracao::pontaPe() {
+	Serial.println(F("Pressione qualquer coisa diferente de Z para calibrar"));
+	delay(5000);
+	resposta = Serial.read();
+
+	if (resposta != 'Z') {
+ 		chamarMenu();
+		cali.refletanciaMaisDir = maisDir.getCinza();
+		cali.refletanciaDir = dir.getCinza();
+		cali.refletanciaEsq = esq.getCinza();
+		cali.refletanciaMaisEsq = maisEsq.getCinza();
+		
+		robo.salvarCalibracao(cali);
+	}
+
+	robo.lerCalibracao(cali);
+
+	maisEsq.setCinza(cali.refletanciaMaisEsq, cali.refletanciaMaisEsq);
+	esq.setCinza(cali.refletanciaEsq, cali.refletanciaEsq);
+	dir.setCinza(cali.refletanciaDir, cali.refletanciaDir);
+	maisDir.setCinza(cali.refletanciaMaisDir, cali.refletanciaMaisDir);
+
 void Calibracao::chamarMenu() {
 	while (respostaMenu != 'Q') {
 		Serial.println(F("--------------------------------------------------"));

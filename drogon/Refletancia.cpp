@@ -11,7 +11,7 @@ float Refletancia::getMenorBranco() {
 
 
 float Refletancia::getCinza() {
-	return 50;
+	return 42;
 //	return this->cinza;
 }
 
