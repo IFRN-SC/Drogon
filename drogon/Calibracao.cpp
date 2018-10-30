@@ -2,8 +2,9 @@
 #include <Arduino.h>
 
 void Calibracao::pontaPe() {
+  resposta = 'Z';
 	Serial.println(F("Pressione qualquer coisa diferente de Z para calibrar"));
-	delay(5000);
+	while(!Serial.available()){}
 	resposta = Serial.read();
 
 	if (resposta != 'Z') {
