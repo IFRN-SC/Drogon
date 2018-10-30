@@ -14,6 +14,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   robo.configurar(false);
+  objetoCalibracao.pontaPe();
 
 }
 
@@ -21,5 +22,5 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   //objetoEstrategia.executarEstrategia();
-  objetoCalibracao.chamarMenu();
+  objetoEstrategia.executarEstrategia();
 }

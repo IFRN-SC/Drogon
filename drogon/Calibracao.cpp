@@ -22,7 +22,7 @@ void Calibracao::pontaPe() {
 	esq.setCinza(cali.refletanciaEsq, cali.refletanciaEsq);
 	dir.setCinza(cali.refletanciaDir, cali.refletanciaDir);
 	maisDir.setCinza(cali.refletanciaMaisDir, cali.refletanciaMaisDir);
-
+}
 void Calibracao::chamarMenu() {
 	while (respostaMenu != 'Q') {
 		Serial.println(F("--------------------------------------------------"));
@@ -45,10 +45,10 @@ void Calibracao::chamarMenu() {
 
 				esperar();
 				limparTela();
-
+        
 			}
 
-			respostaMenuDois == 'z';
+			respostaMenuDois = 'Z';
 		}else if (respostaMenu == 'B') {
 			while (respostaMenuDois != 'Q') {
 				mostrarValores();
@@ -57,7 +57,7 @@ void Calibracao::chamarMenu() {
 				esperar();
 				limparTela();
 			}
-
+      respostaMenuDois = 'Z';
 			limparTela();
 		}
 
