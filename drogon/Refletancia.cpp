@@ -11,8 +11,7 @@ float Refletancia::getMenorBranco() {
 
 
 float Refletancia::getCinza() {
-	return 42;
-//	return this->cinza;
+	return this->cinza;
 }
 
 void Refletancia::setMaiorPreto(float preto) {

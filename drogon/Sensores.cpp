@@ -3,8 +3,6 @@
 #include <robo_hardware2.h>
 #include "Sensores.h"
 
-#define DISTANCIA_SONAR 10
-
 
 bool Sensores::viuObstaculo() {
 	return false;
@@ -47,5 +45,3 @@ void Sensores::setarCinzas() {
 	esq.setCinza(esq.getMaiorPreto(), esq.getMenorBranco());
 	maisEsq.setCinza(maisEsq.getMaiorPreto(), maisEsq.getMenorBranco());
 }
-
-

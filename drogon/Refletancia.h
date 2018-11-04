@@ -2,7 +2,6 @@
 #define REFLETANCIA_H
 
 #include <robo_hardware2.h>
-
 class Refletancia {
 	private:
 		float maiorPreto;	

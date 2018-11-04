@@ -4,7 +4,7 @@
 #include "Refletancia.h"
 class Calibracao {
 	private:
-		char resposta = 'Z';
+		char resposta = 'C';
   	char respostaValores = 'Z';
 		char respostaMenu = 'Z';
 		char respostaMenuDois = 'Z';
@@ -15,6 +15,8 @@ class Calibracao {
 		float valorEsq;
 		float valorDir;
 		float valorMaisDir;
+
+		int contadorWhile = 0;
 
   public:
 		void calibrarPreto();

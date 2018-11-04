@@ -2,12 +2,20 @@
 #include <Arduino.h>
 
 void Calibracao::pontaPe() {
-  resposta = 'Z';
-	Serial.println(F("Pressione qualquer coisa diferente de Z para calibrar"));
-	while(!Serial.available()){}
+  	resposta = 'C';
+  	contadorWhile = 0;
+	Serial.println(F("Pressione K para calibrar "));
+	Serial.println(F("Pressione qualquer outra coisa para ler os valores da memória"));
+	
+	while(!Serial.available()){
+		delay(10);
+		contadorWhile += 10;
+		if (contadorWhile >= 3500) { break; };
+	}
+
 	resposta = Serial.read();
 
-	if (resposta != 'Z') {
+	if (resposta == 'K') {
  		chamarMenu();
 		cali.refletanciaMaisDir = maisDir.getCinza();
 		cali.refletanciaDir = dir.getCinza();
@@ -23,6 +31,8 @@ void Calibracao::pontaPe() {
 	esq.setCinza(cali.refletanciaEsq, cali.refletanciaEsq);
 	dir.setCinza(cali.refletanciaDir, cali.refletanciaDir);
 	maisDir.setCinza(cali.refletanciaMaisDir, cali.refletanciaMaisDir);
+
+	delay(5000);
 }
 void Calibracao::chamarMenu() {
 	while (respostaMenu != 'Q') {
@@ -33,7 +43,7 @@ void Calibracao::chamarMenu() {
 		Serial.println(F("                                                  "));
 		Serial.println(F("--------------------------------------------------"));
 		
-		delay(1000);
+		while (!Serial.available()) {}
 		
 		limparTela();
 	
@@ -58,8 +68,11 @@ void Calibracao::chamarMenu() {
 				esperar();
 				limparTela();
 			}
-      respostaMenuDois = 'Z';
+      		respostaMenuDois = 'Z';
 			limparTela();
+		}else if (respostaMenu == 'Q'){
+			limparTela();
+			Serial.println(F("Calibração finalizada. Iniciando estratégia em 6 segundos."));
 		}
 
 			
@@ -88,7 +101,8 @@ void Calibracao::esperar() {
 	Serial.println(F("------------------------------------------------"));
 	Serial.println(F("Deseja usá-los na calibração?   S/N"));
 
-	delay(8000);
+	while (!Serial.available()) {}
+
 	respostaValores = Serial.read();
 
 	if (respostaMenu == 'P' && respostaValores == 'S') {
@@ -110,7 +124,7 @@ void Calibracao::esperar() {
 	Serial.println(F("Qualquer coisa para continuar pegando valores"));
 	Serial.println(F("Q - Sair"));
 
-	delay(8000);
+	while (!Serial.available()) {}
 	respostaMenuDois = Serial.read();
 	
 }
