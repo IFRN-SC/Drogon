@@ -23,47 +23,13 @@ void Movimento::motores90Esquerda() {
 	robo.acionarPassoAngEsq(90, -80);
 }
 
-void Movimento::motoresPrecisao(float distancia) {
+void Movimento::motoresPrecisao(float distancia, int vel) {
 	// Sentido true é para frente, logo, false é para trás. A distância é em centímetros.
-  quantPassos = 0;
-  quantRevolucoes = 0;
-  circuferenciaRoda = PI * DIAMETRO_RODA;
- 
-	setQuantRevolucoes(abs(distancia), getCircunferenciaRoda());
-	setQuantPassos();
- 
- 
+	// 1 passo = 5,625°
 
-	for (int j = 1; j <= getQuantPassos() ; j++) {
-		if (distancia > 0) {
-			passoDir.step(1);
-			passoEsq.step(1);
-		} else if (distancia < 0) {
-			passoDir.step(-1);
-			passoEsq.step(-1);
-		}else{
-			break;
-		}
-	}
+	circuferenciaRoda = PI * DIAMETRO_RODA;
+	quantRevolucoes = distancia/circuferenciaRoda;
+  	quantGraus = 360 * quantRevolucoes;
+  	robo.acionarMotoresEmGraus(vel, quantGraus);
 }
 
-float getCircunferenciaRoda() {
-	return circunferenciaRoda;
-}
-
-float getQuantRevolucoes() {
-	return quantRevolucoes;
-}
-
-void setQuantRevolucoes(float distancia2, float circunferenciaDaRoda) {
-	quantRevolucoes = distancia2/circunferenciaDaRoda;
-}
-
-int getQuantPassos() {
-	return quantPassos;
-}
-
-void setQuantPassos() {
-	quantPassos = (PASSOS_POR_ROTACAO_ESQ_DEFAULT * getQuantRevolucoes()); //poderia ser PASSOS_POR_ROTACAO_DIR_DEFAULT também, mas como ambas são 64, não faz diferença.
-
-}
