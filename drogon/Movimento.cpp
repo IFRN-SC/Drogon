@@ -15,21 +15,36 @@ void Movimento::motoresEsquerda() {
 	robo.acionarMotoresPasso(80, 80);
 }
 
-void Movimento::motores90Direita() {
-	robo.acionarPassoAngDir(90, -80);	
-}
-
-void Movimento::motores90Esquerda() {
-	robo.acionarPassoAngEsq(90, -80);
-}
-
 void Movimento::motoresPrecisao(float distancia, int vel) {
-	// Sentido true é para frente, logo, false é para trás. A distância é em centímetros.
-	// 1 passo = 5,625°
-
-	circuferenciaRoda = PI * DIAMETRO_RODA;
-	quantRevolucoes = distancia/circuferenciaRoda;
-  	quantGraus = 360 * quantRevolucoes;
-  	robo.acionarMotoresEmGraus(vel, quantGraus);
+	
 }
 
+void Movimento::girarRoboEmGraus(float graus, int vel=60) {
+
+	//quantidade positiva de graus é um giro para a direita; negativa, para a esquerda. 
+
+	quantGraus = (getCircunferenciaRoda() * graus) / 360;
+
+	for (contador = 0; contador < getQuantGraus(); contador++) {
+		if (graus > 0) {
+			robo.acionarPassoAngEsq(1, vel);
+			robo.acionarPassoAngDir(-1, vel);
+		}else if (graus < 0){
+			robo.acionarPassoAngEsq(-1, vel);
+			robo.acionarPassoAngDir(1, vel);
+		}
+	}
+}
+
+int Movimento::getQuantGraus() {
+	return quantGraus;
+
+}
+
+float Movimento::getCircunferenciaRoda() {
+	return circunferenciaRoda;
+}
+
+float Movimento::getCircunferenciaRobo() {
+	return circunferenciaRobo;
+}

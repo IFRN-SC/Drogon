@@ -1,8 +1,8 @@
 #ifndef MOVIMENTO_H
 #define MOVIMENTO_H
 
-#define DIAMETRO_RODA 1
-#define PI 3.141592
+#define DIAMETRO_RODA 11.2
+#define DIAMETRO_ROBO 22.4
 
 #include <robo_hardware2.h>
 #include "Arduino.h"
@@ -11,23 +11,23 @@
 class Movimento : private MotorPasso {
 	private:
 		int quantGraus = 0;
-		float quantRevolucoes = 0;
-    	float circuferenciaRoda = PI * DIAMETRO_RODA;
+		int contador = 0;
+
+    	float circunferenciaRoda = PI * DIAMETRO_RODA;
+    	float circunferenciaRobo = PI * DIAMETRO_ROBO;
 
 	public:
 		void motoresPrecisao(float distancia, int vel);
 		void motoresFrente();
 		void motoresDireita();
 		void motoresEsquerda();
-		void motores90Esquerda();
-		void motores90Direita();
-		void subirRampa();
+		void girarRoboEmGraus(float graus, int vel);
 
 		float getCircunferenciaRoda();
-		void setCircunferenciaRoda();
+		float getCircunferenciaRobo();
 
-		int getQuantPassos();
-		void setQuantPassos();
+		int getQuantGraus();
+
 };
 
 #endif

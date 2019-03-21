@@ -3,7 +3,7 @@
 //VERIFICAR PONTAPE INICIAL
 
 
-void Estrategia::executarEstrategia() {
+void Estrategia::executar() {
 	if (objetoSensor.viuObstaculo()) {
 		this->passarObstaculo();
 
@@ -36,4 +36,3 @@ void Estrategia::movimentar() {
 
 	
 }
-
