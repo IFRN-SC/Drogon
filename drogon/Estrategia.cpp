@@ -4,13 +4,13 @@
 
 
 void Estrategia::executar() {
-	if (objetoSensor.viuObstaculo()) {
+	if (sensor.viuObstaculo()) {
 		this->passarObstaculo();
 
-	}else if (objetoSensor.viuVerde()) {
+	}else if (sensor.viuVerde()) {
 		this->fazerVerde();
 
-	}else if (objetoSensor.viuRampa()){
+	}else if (sensor.viuRampa()){
 		this->subirRampa();
 
 	}else{
@@ -20,19 +20,31 @@ void Estrategia::executar() {
 }
 
 void Estrategia::movimentar() {
-	if (objetoSensor.PP()) {
-		objetoMovimento.motoresFrente();
-	}else if (objetoSensor.BB()) {
-		objetoMovimento.motoresFrente();
-	}else if (objetoSensor.PB()) {
-		objetoMovimento.motoresEsquerda();
+	if (sensor.PP()) {
+		mov.motoresFrente();
+	}else if (sensor.BB()) {
+		mov.motoresFrente();
+	}else if (sensor.PB()) {
+		mov.motoresEsquerda();
 	}else{
-		objetoMovimento.motoresDireita();
+		mov.motoresDireita();
 	}
-
 	
+}
 
-	
+void Estrategia::passarObstaculo() {
+	mov.motoresPrecisao(10, 90);
+  mov.girarRobo(90, 90);
+  mov.motoresPrecisao(20, 90);
+  mov.girarRobo(-90, 90);
+  mov.motoresPrecisao(40, 90);
+  mov.girarRobo(-90, 90);
+  mov.motoresPrecisao(20, 90);
+  mov.girarRobo(90, 90);
+  
+}
 
-	
+void Estrategia::viuObstaculo() {
+  
+   
 }

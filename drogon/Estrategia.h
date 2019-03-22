@@ -10,13 +10,13 @@
 
 class Estrategia {
 	private:
-    		Calibracao objetoCalibracao;
-    		Movimento objetoMovimento;
-    		Sensores objetoSensor;
+    	Calibracao cali;
+    	Movimento mov;
+    	Sensores sensor;
     	
 	public:
-		void executarEstrategia();
-
+		void executar();
+		
 		void passarObstaculo();
 		void fazerVerde();
 		void subirRampa();

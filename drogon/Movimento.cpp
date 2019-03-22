@@ -4,42 +4,44 @@
 //o código está adaptado para os dois motores no sentido contrario
 
 void Movimento::motoresFrente() {
+
 	robo.acionarMotoresPasso(-80, 80);
 }
 
 void Movimento::motoresDireita() {
+
 	robo.acionarMotoresPasso(-80, -80);
 }
 
 void Movimento::motoresEsquerda() {
+
 	robo.acionarMotoresPasso(80, 80);
 }
 
-void Movimento::motoresPrecisao(float distancia, int vel) {
-	
+void Movimento::motoresPrecisao(float distancia, int vel = 90) { //distancia em centímetros
+
+	angulosPrecisao = distancia * 360 / circunferenciaRoda;
+	robo.acionarMotoresPassoEmGraus(vel, angulosPrecisao);
 }
 
-void Movimento::girarRoboEmGraus(float graus, int vel=60) {
+void Movimento::girarRobo(float graus, int vel=60) {
 
 	//quantidade positiva de graus é um giro para a direita; negativa, para a esquerda. 
 
-	quantGraus = (getCircunferenciaRoda() * graus) / 360;
-
-	for (contador = 0; contador < getQuantGraus(); contador++) {
+	float quantGraus = graus*circunferenciaRobo/circunferenciaRoda;
+ 
+  Serial.println(quantGraus);
+	for (contador = 0; contador < abs(quantGraus); contador += 5) {
 		if (graus > 0) {
-			robo.acionarPassoAngEsq(1, vel);
-			robo.acionarPassoAngDir(-1, vel);
+			robo.acionarPassoAngEsq(5, vel);
+			robo.acionarPassoAngDir(-5, vel);
 		}else if (graus < 0){
-			robo.acionarPassoAngEsq(-1, vel);
-			robo.acionarPassoAngDir(1, vel);
+			robo.acionarPassoAngEsq(-5, vel);
+			robo.acionarPassoAngDir(5, vel);
 		}
 	}
 }
 
-int Movimento::getQuantGraus() {
-	return quantGraus;
-
-}
 
 float Movimento::getCircunferenciaRoda() {
 	return circunferenciaRoda;
