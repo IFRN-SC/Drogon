@@ -5,7 +5,11 @@
 
 
 bool Sensores::viuObstaculo() {
-	return false;
+	if (robo.lerSensorSonarFrontal() <= 15) {
+    return true;
+  }else{
+    return false;
+  }
 }
 
 bool Sensores::viuVerde() {
