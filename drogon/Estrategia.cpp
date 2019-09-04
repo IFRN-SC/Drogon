@@ -1,50 +1,113 @@
 #include "Estrategia.h"
 
-//VERIFICAR PONTAPE INICIAL
+void Estrategia::calibrar() {
+  sensor.tempo();
+}
+void Estrategia::seguirLinha() {
 
+  if (sensor.bbbb()) { //bbbb
+    movi.motoresFrente();
 
+  } else if (sensor.pppp()) { //pppp
+    movi.motoresFrente();
+
+  } else if (sensor.bbpp()) { //bbpp
+    /*while(!sensor.bbbb()){
+      movi.motoresFrente();
+      }*/
+    movi.motoresDir();
+
+  } else if (sensor.ppbb()) { //ppbb
+    /*while(!sensor.bbbb()){
+      movi.motoresFrente();
+      }*/
+    movi.motoresEsq();
+
+  } else if (sensor.bpbb()) {
+    movi.motoresEsq();
+
+  } else if (sensor.bbpb()) {
+    movi.motoresDir();
+
+  } else if (sensor.bppb()) {
+    /*while(!sensor.bbbb()){
+      movi.motoresDir();
+      }*/
+    movi.motoresFrente();
+  } else if (sensor.bppp()) {
+    /*while(!sensor.bbbb()){
+      movi.motoresFrente();
+      }*/
+    movi.motoresDir();
+
+  } else if (sensor.pppb()) { //teste600
+    /*while(!sensor.bbbb()){
+      movi.motoresFrente();
+      }*/
+    movi.motoresEsq();
+  } else if (sensor.bbbp()) {
+    movi.motoresDir();
+  }
+}
+void Estrategia::desviarObs() {
+  movi.girarDir();
+  delay(300);
+  movi.motoresParem(); 
+  while(!sensor.pppp()){
+    movi.motoresTras();
+ }
+  movi.motoresParem();
+  while(sensor.ppbb()|| sensor.pppb()){
+    robo.acionarMotores(0, 50);
+ }  
+  movi.motoresFrente();
+  delay(1200);
+  movi.motoresEsq();
+  delay(300);
+  robo.acionarMotores(35,35);
+  delay(1400);
+  movi.motoresEsq();
+  delay(300);
+  while(sensor.bbbb()){
+    movi.motoresFrente();
+  }
+  movi.motoresFrente();
+  delay(200);
+  movi.motoresDir();
+  delay(300);
+  movi.motoresTras();
+  delay(90);
+}
+void Estrategia::redutor() {//teste
+  robo.ligarLed(1);
+
+  movi.superFrente();
+  delay(300);
+  
+  movi.motoresTras();
+  delay(250);
+  
+  movi.superFrente();
+  delay(300);
+
+  movi.motoresParem();
+  delay(300);
+
+  while(!sensor.bbbb()){
+    movi.motoresFrente();
+  }
+  while (sensor.bbbb() || sensor.bbpp() || sensor.bbbp()) {
+    movi.motoresTras();
+    delay(150);
+  }
+  seguirLinha();
+}
 void Estrategia::executar() {
-	if (sensor.viuObstaculo()) {
-		this->passarObstaculo();
-
-	}else if (sensor.viuVerde()) {
-		this->fazerVerde();
-
-	}else if (sensor.viuRampa()){
-		this->subirRampa();
-
-	}else{
-		this->movimentar();
-	}
-
-}
-
-void Estrategia::movimentar() {
-	if (sensor.PP()) {
-		mov.motoresFrente();
-	}else if (sensor.BB()) {
-		mov.motoresFrente();
-	}else if (sensor.PB()) {
-		mov.motoresEsquerda();
-	}else{
-		mov.motoresDireita();
-	}
-	
-}
-
-void Estrategia::passarObstaculo() {
-	mov.motoresPrecisao(10, 90);
-  mov.girarRobo(90, 90);
-  mov.motoresPrecisao(20, 90);
-  mov.girarRobo(-90, 90);
-  mov.motoresPrecisao(40, 90);
-  mov.girarRobo(-90, 90);
-  mov.motoresPrecisao(20, 90);
-  mov.girarRobo(90, 90);
-  
-}
-
-void Estrategia::viuObstaculo() {
-  
-   
+  if (sensor.viuObs()) {
+    desviarObs();
+  } else if (digitalRead(28) == LOW) {
+    redutor(); 
+  } else {
+    seguirLinha();
+  }
 }

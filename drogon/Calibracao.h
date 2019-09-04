@@ -1,38 +1,42 @@
-#ifndef CALIBRACAO_H
-#define CALIBRACAO_H
+#ifndef CAlIBRACAO_H
+#define CAlIBRACAO_H
 
 #include "Refletancia.h"
-class Calibracao {
-	private:
-		char resposta = 'C';
-  	char respostaValores = 'Z';
-		char respostaMenu = 'Z';
-		char respostaMenuDois = 'Z';
 
-		calibracao_dados cali;
+#include <robo_hardware2.h>
 
-		float valorMaisEsq;
-		float valorEsq;
-		float valorDir;
-		float valorMaisDir;
+class Calibracao{
+  private:
 
-		int contadorWhile = 0;
+    char resposta = 'C';
+    char valorCores = 'V';
+
+    calibracao_dados cali;
+
+    int contadorWhile = 0;
+
+    void calibrarPreto();
+    float pretoMaisEsq;
+    float pretoEsq;
+    float pretoMaisDir;
+    float pretoDir;
+
+    void calibrarBranco();
+    float brancoMaisEsq;
+    float brancoEsq;
+    float brancoMaisDir;
+    float brancoDir; 
 
   public:
-		void calibrarPreto();
-		void calibrarBranco();
-		void pontaPe(); 
 
-		void limparTela();
-		void mostrarValores();
-		void esperar();
+    void calibrar();
+    void mostrarValores();
+    void valorCorte();
 
-		void chamarMenu();
-		
-    
+    void tempo();
+
+    void limparTela();
   protected:
-  	Refletancia dir, esq, maisDir, maisEsq;
-
+    Refletancia maisEsq, esq, maisDir, dir;
 };
-
-#endif
+#endif 

@@ -1,188 +1,185 @@
 #include "Calibracao.h"
 #include <Arduino.h>
 
-void Calibracao::pontaPe() {
-  	resposta = 'C';
-  	contadorWhile = 0;
-	Serial.println(F("Pressione K para calibrar "));
-	Serial.println(F("Pressione qualquer outra coisa para ler os valores da memória"));
-	
-	while(!Serial.available()){
-		delay(10);
-		contadorWhile += 10;
-		if (contadorWhile >= 3500) { break; };
-	}
+void Calibracao::tempo(){
 
-	resposta = Serial.read();
+  Serial.println(F("Pressione C para calibrar"));
+  Serial.println(F("Espere para não calibrar"));
 
-	if (resposta == 'K') {
- 		chamarMenu();
-		cali.refletanciaMaisDir = maisDir.getCinza();
-		cali.refletanciaDir = dir.getCinza();
-		cali.refletanciaEsq = esq.getCinza();
-		cali.refletanciaMaisEsq = maisEsq.getCinza();
-		
-		robo.salvarCalibracao(cali);
-	}
+  while(!Serial.available()){
+    delay(10);
+    contadorWhile += 10;
+    if(contadorWhile >= 3500) { 
+      break; 
+      }
+  }
 
-	robo.lerCalibracao(cali);
+  resposta = Serial.read();
 
-	maisEsq.setCinza(cali.refletanciaMaisEsq, cali.refletanciaMaisEsq);
-	esq.setCinza(cali.refletanciaEsq, cali.refletanciaEsq);
-	dir.setCinza(cali.refletanciaDir, cali.refletanciaDir);
-	maisDir.setCinza(cali.refletanciaMaisDir, cali.refletanciaMaisDir);
+  if(resposta == 'C' || resposta == 'c'){
+      calibrar();
 
-	delay(5000);
-}
-void Calibracao::chamarMenu() {
-	while (respostaMenu != 'Q') {
-		Serial.println(F("--------------------------------------------------"));
-		Serial.println(F("P - Calibrar preto"));
-		Serial.println(F("B - Calibrar branco"));
-		Serial.println(F("Q - Setar cinza e sair do menu de calibração"));
-		Serial.println(F("                                                  "));
-		Serial.println(F("--------------------------------------------------"));
-		
-		while (!Serial.available()) {}
-		
-		limparTela();
-	
-		respostaMenu = Serial.read();
+     Serial.println(F("Acabou"));
+  }
+  
+  robo.lerCalibracao(cali);
 
-		if (respostaMenu == 'P') {
-			while (respostaMenuDois != 'Q') {
-				mostrarValores();
-				limparTela();
+  dir.setCinza(cali.refletanciaDir);
+  maisDir.setCinza(cali.refletanciaMaisDir);
+  esq.setCinza(cali.refletanciaEsq);
+  maisEsq.setCinza(cali.refletanciaMaisEsq);
 
-				esperar();
-				limparTela();
-        
-			}
-
-			respostaMenuDois = 'Z';
-		}else if (respostaMenu == 'B') {
-			while (respostaMenuDois != 'Q') {
-				mostrarValores();
-				limparTela();
-
-				esperar();
-				limparTela();
-			}
-      		respostaMenuDois = 'Z';
-			limparTela();
-		}else if (respostaMenu == 'Q'){
-			limparTela();
-			Serial.println(F("Calibração finalizada. Iniciando estratégia em 6 segundos."));
-		}
-
-			
-	}
-
-	
+  
+  Serial.print(maisEsq.getCinza());
+  Serial.print(F("\t --- \t"));
+  Serial.print(esq.getCinza());
+  Serial.print(F("\t --- \t"));
+  Serial.print(dir.getCinza());
+  Serial.print(F("\t --- \t"));
+  Serial.print(maisDir.getCinza());
+  Serial.println(F(" Média"));
 }
 
+void Calibracao::calibrar(){
 
-void Calibracao::esperar() {
-	valorMaisEsq = robo.lerSensorLinhaMaisEsq();
-	valorEsq = robo.lerSensorLinhaEsq();
-	valorDir = robo.lerSensorLinhaDir();
-	valorMaisDir = robo.lerSensorLinhaMaisDir();
+    Serial.print(F("Entrou na calibração"));
+    
+    limparTela();
 
-	Serial.println(F("Os valores coletados foram: "));
-	Serial.println(F("+esq          esq          dir          +dir"));
-	Serial.print(valorMaisEsq);
-	Serial.print(F("          "));
-	Serial.print(valorEsq);
-	Serial.print(F("          "));
-	Serial.print(valorDir);
-	Serial.print(F("          "));
-	Serial.println(valorMaisDir);
-	Serial.println(F(""));
-	Serial.println(F("------------------------------------------------"));
-	Serial.println(F("Deseja usá-los na calibração?   S/N"));
+    while(resposta != 'S' || resposta != 's'){
+    
+            Serial.println(F("Vc quer ter os valores do preto ou do branco? P/B"));
+            Serial.println(F("Pressione S para sair"));
+            Serial.println(F(""));
 
-	while (!Serial.available()) {}
+            while(!Serial.available()){}
+            valorCores = Serial.read();
+            
+            if(valorCores == 'P' || valorCores == 'p'){
+                Serial.println(F("Entrou no preto"));
+                calibrarPreto();
+            }else if(valorCores == 'B' ||  valorCores == 'b'){
+               Serial.println(F("Entrou no branco"));
+               calibrarBranco();
+            }else if(valorCores == 'S' || valorCores == 's'){
+              resposta = 'S';
+              valorCorte();
 
-	respostaValores = Serial.read();
+              Serial.print(maisEsq.getCinza());
+              Serial.print(F("\t --- \t"));
+              Serial.print(esq.getCinza());
+              Serial.print(F("\t --- \t"));
+              Serial.print(dir.getCinza());
+              Serial.print(F("\t --- \t"));
+              Serial.print(maisDir.getCinza());
+              Serial.println(F(" Média"));
 
-	if (respostaMenu == 'P' && respostaValores == 'S') {
-		calibrarPreto();	
-	}
-	if (respostaMenu == 'B' && respostaValores == 'S') {
-		calibrarBranco();
-	}
+              cali.refletanciaDir = dir.getCinza() ;
+              cali.refletanciaMaisDir = maisDir.getCinza();
+              cali.refletanciaEsq = esq.getCinza();
+              cali.refletanciaMaisEsq = maisEsq.getCinza();
 
-	limparTela();
+              robo.salvarCalibracao(cali);
+                        
+            }
+    }   
 
-	valorMaisEsq = 0;
-	valorEsq = 0;
-	valorDir = 0;
-	valorMaisDir = 0;
+}  
 
-	Serial.println(F("Deseja pegar mais valores ou sair?"));
-	Serial.println(F(""));
-	Serial.println(F("Qualquer coisa para continuar pegando valores"));
-	Serial.println(F("Q - Sair"));
+void Calibracao::calibrarPreto(){ 
+    limparTela();
+    
+    pretoMaisEsq = robo.lerSensorLinhaMaisEsq();
+    pretoEsq = robo.lerSensorLinhaEsq();
+    pretoMaisDir = robo.lerSensorLinhaMaisDir();
+    pretoDir = robo.lerSensorLinhaDir();
 
-	while (!Serial.available()) {}
-	respostaMenuDois = Serial.read();
-	
+    for(int i = 1; i <= 9; i++){
+        pretoMaisEsq = (pretoMaisEsq + robo.lerSensorLinhaMaisEsq())/2;
+        pretoEsq = (pretoEsq + robo.lerSensorLinhaEsq())/2;
+        pretoMaisDir = (pretoMaisDir + robo.lerSensorLinhaMaisDir())/2;
+        pretoDir = (pretoDir + robo.lerSensorLinhaDir())/2;
+    }
+
+    maisEsq.setPreto(pretoMaisEsq);
+    esq.setPreto(pretoEsq);
+    maisDir.setPreto(pretoMaisDir);
+    dir.setPreto(pretoDir);
+
+    Serial.print(maisEsq.getPreto());
+    Serial.print(F("\t --- \t"));
+    Serial.print(esq.getPreto());
+    Serial.print(F("\t --- \t"));
+    Serial.print(dir.getPreto());
+    Serial.print(F("\t --- \t"));
+    Serial.print(maisDir.getPreto());
+    Serial.println(F(" Preto"));
+
+    for(int led=1; led<=3; led++){
+    robo.desligarLed(led);
+    }
 }
+void Calibracao::calibrarBranco(){
+    limparTela();
+    
+    brancoMaisEsq = robo.lerSensorLinhaMaisEsq();
+    brancoEsq = robo.lerSensorLinhaEsq();
+    brancoMaisDir = robo.lerSensorLinhaMaisDir();
+    brancoDir = robo.lerSensorLinhaDir();
 
-void Calibracao::limparTela() {
-	for (int x = 1; x <= 50; x++) {
-		Serial.println(F(""));
-	}
+    for(int i = 1; i <= 9; i++){
+
+      brancoMaisEsq = (brancoMaisEsq + robo.lerSensorLinhaMaisEsq())/2;
+      brancoEsq = (brancoEsq + robo.lerSensorLinhaEsq())/2;
+      brancoMaisDir = (brancoMaisDir + robo.lerSensorLinhaMaisDir())/2;
+      brancoDir = (brancoDir + robo.lerSensorLinhaDir())/2;
+
+      delay(100);      
+    }
+    
+    maisEsq.setBranco(brancoMaisEsq);
+    esq.setBranco(brancoEsq);
+    maisDir.setBranco(brancoMaisDir);
+    dir.setBranco(brancoDir);
+
+    Serial.print(maisEsq.getBranco());
+    Serial.print("\t --- \t");
+    Serial.print(esq.getBranco());
+    Serial.print("\t --- \t");
+    Serial.print(dir.getBranco());
+    Serial.print("\t --- \t");
+    Serial.print(maisDir.getBranco());
+    Serial.println(" Branco");
+
+    for(int led=1; led<=3; led++){
+    robo.desligarLed(led);
+    }
 }
-
-void Calibracao::mostrarValores() {
-	while (Serial.read() != 'V') {
-		Serial.println(F("+esq          esq          dir          +dir"));
-		Serial.print(robo.lerSensorLinhaMaisEsq());
-		Serial.print(F("          "));
-		Serial.print(robo.lerSensorLinhaEsq());
-		Serial.print(F("          ")); 
-		Serial.print(robo.lerSensorLinhaDir());
-		Serial.print(F("          "));
-		Serial.println(robo.lerSensorLinhaMaisDir());
-
-		Serial.println(F(""));
-		Serial.println(F("--------------------------------------------------"));
-		Serial.println(F("Pressione V para pegar os valores"));
-
-		delay(250);
-
-		limparTela();
-
-	}
+void Calibracao::valorCorte(){
+    maisEsq.setCinza(maisEsq.getPreto(), maisEsq.getBranco());
+    esq.setCinza(esq.getPreto(), esq.getBranco());
+    maisDir.setCinza(maisDir.getPreto(), maisDir.getBranco());
+    dir.setCinza(dir.getPreto(), dir.getBranco());
 }
+void Calibracao::mostrarValores(){
+  float sensorMaisEsq = robo.lerSensorLinhaMaisEsq();
+  float sensorEsq = robo.lerSensorLinhaEsq();
+  float sensorMaisDir = robo.lerSensorLinhaMaisDir();
+  float sensorDir = robo.lerSensorLinhaDir();
 
-void Calibracao::calibrarPreto() {
-	if (valorMaisDir > maisDir.getMaiorPreto()) {
-		maisDir.setMaiorPreto(valorMaisDir);
-	}
-	if (valorDir > dir.getMaiorPreto()) {
-		dir.setMaiorPreto(valorDir);
-	}
-	if (valorEsq > esq.getMaiorPreto()) {
-		esq.setMaiorPreto(valorEsq);
-	}
-	if (valorMaisEsq > maisEsq.getMaiorPreto()) {
-		maisEsq.setMaiorPreto(valorMaisEsq);
-	}
+  Serial.print("Valor dos sensores: +esq:     esq:     dir:     +dir:");
+  Serial.print(F("                     "));
+  Serial.print(sensorMaisEsq);
+  Serial.print(F("      "));
+  Serial.print(sensorEsq);
+  Serial.print(F("      "));
+  Serial.print(sensorMaisDir);
+  Serial.print(F("      "));
+
+  delay(250);
 }
-
-void Calibracao::calibrarBranco() {
-	if (valorMaisDir < maisDir.getMenorBranco()) {
-		maisDir.setMenorBranco(robo.lerSensorLinhaMaisDir());
-	}
-	if (valorDir < dir.getMenorBranco()) {
-		dir.setMenorBranco(robo.lerSensorLinhaDir());
-	}
-	if (valorEsq < esq.getMenorBranco()) {
-		esq.setMenorBranco(robo.lerSensorLinhaEsq());
-	}
-	if (valorMaisEsq < maisEsq.getMenorBranco()) {
-		maisEsq.setMenorBranco(robo.lerSensorLinhaMaisEsq());
-	}
+void Calibracao::limparTela(){
+  for(int i = 1; i <= 49; i++){
+    Serial.println(F(""));
+  }
 }

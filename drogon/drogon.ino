@@ -1,24 +1,19 @@
-#include <robo_hardware2.h>
-#include <Arduino.h>
-
+#include <robo_hardware2.h> //refletancia_interferencia
+#include "Refletancia.h"
+#include "Movimento.h"
 #include "Estrategia.h"
 #include "Calibracao.h"
-#include "Movimento.h"
-#include "Sensores.h"
 
+Estrategia estra;
+Movimento movi;
 
-
-
-void setup() {
-  // put your setup code here, to run once:
+void setup(){
   Serial.begin(9600);
   robo.configurar(false);
+  estra.calibrar();
   
-
+  pinMode(28, INPUT_PULLUP);
 }
-
-
-void loop() {
-  // put your main code here, to run repeatedly:
-  
-} 
+void loop(){
+  estra.executar();
+}

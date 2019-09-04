@@ -2,26 +2,21 @@
 #define ESTRATEGIA_H
 
 #include <robo_hardware2.h>
-
-#include "Sensores.h"
-#include "Calibracao.h"
+#include "Refletancia.h"
 #include "Movimento.h"
-
+#include "Calibracao.h"
+#include "Sensores.h"
 
 class Estrategia {
-	private:
-    	Calibracao cali;
-    	Movimento mov;
-    	Sensores sensor;
-    	
-	public:
-		void executar();
-		
-		void passarObstaculo();
-		void fazerVerde();
-		void subirRampa();
-		void movimentar();
-		
+  private:
+    Movimento movi;
+    Calibracao c;
+    Sensores sensor;
+  public:
+    void seguirLinha(); 
+    void calibrar();
+    void desviarObs();
+    void redutor();
+    void executar();  
 };
-
 #endif

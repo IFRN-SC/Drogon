@@ -1,27 +1,23 @@
-#include <robo_hardware2.h>
 #include "Refletancia.h"
 
-float Refletancia::getMaiorPreto() {
-	return this->maiorPreto;
+float Refletancia::getPreto(){
+  return preto;  
 }
-
-float Refletancia::getMenorBranco() {
-	return this->menorBranco;	
+float Refletancia::getBranco(){
+  return branco;
+} 
+float Refletancia::getCinza(){
+  return cinza;
 }
-
-
-float Refletancia::getCinza() {
-	return this->cinza;
+void Refletancia::setPreto(float preto){
+  this -> preto = preto;
 }
-
-void Refletancia::setMaiorPreto(float preto) {
-	this->maiorPreto = preto;
+void Refletancia::setBranco(float branco){
+  this -> branco = branco;
 }
-
-void Refletancia::setMenorBranco(float branco) {
-	this->menorBranco = branco;
+void Refletancia::setCinza(float preto, float branco){
+  cinza = (preto + branco)/2;
 }
-
-void Refletancia::setCinza(float preto, float branco) {
-	this->cinza = (preto+branco)/2; 
+void Refletancia::setCinza(int cinza){
+  this -> cinza = cinza;
 }
