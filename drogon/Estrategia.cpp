@@ -51,23 +51,23 @@ void Estrategia::seguirLinha() {
 }
 void Estrategia::desviarObs() {
   movi.girarDir();
-  delay(300);
+  delay(290);
   movi.motoresParem(); 
   while(!sensor.pppp()){
     movi.motoresTras();
  }
   movi.motoresParem();
   while(sensor.ppbb()|| sensor.pppb()){
-    robo.acionarMotores(0, 50);
+    robo.acionarMotores(0, 45);
  }  
   movi.motoresFrente();
-  delay(1200);
+  delay(900);
   movi.motoresEsq();
-  delay(300);
+  delay(260);
   robo.acionarMotores(35,35);
-  delay(1400);
+  delay(1100);
   movi.motoresEsq();
-  delay(300);
+  delay(220);
   while(sensor.bbbb()){
     movi.motoresFrente();
   }
@@ -96,10 +96,10 @@ void Estrategia::redutor() {//teste
   while(!sensor.bbbb()){
     movi.motoresFrente();
   }
-  while (sensor.bbbb() || sensor.bbpp() || sensor.bbbp()) {
+  /*while (sensor.bbbb() || sensor.bbpp() || sensor.bbbp()) {
     movi.motoresTras();
     delay(150);
-  }
+  }*/
   seguirLinha();
 }
 void Estrategia::executar() {
