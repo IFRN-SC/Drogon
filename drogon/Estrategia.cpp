@@ -50,25 +50,80 @@ void Estrategia::seguirLinha() {
   }
 }
 void Estrategia::desviarObs() {
+  //testeee
+  /*movi.motoresTras();
+  delay(150);
+  movi.girarEsq90();
+  movi.motoresFrente();
+  delay(300);
+  movi.motoresParem();
+  delay(150);
+
+  while (sensor.bbbb() || sensor.pbbb() || sensor.ppbb()) {
+    movi.motoresTras();
+  }
+
+  movi.motoresParem();
+  delay(150);
+
+  while (sensor.ppbb() || sensor.pppb()) {
+    robo.acionarMotores(0,50);
+  }
+
+  movi.motoresFrente();
+  delay(1200);
+  movi.motoresParem();
+  delay(300);
+  movi.girarDir90();
+  movi.motoresParem();
+  delay(300);
+  movi.motoresFrente();
+  delay(1400);
+  movi.motoresParem();
+  delay(300);
+  movi.girarDir90();
+  movi.motoresTras();
+  delay(150);
+
+  while(sensor.bbbb()){
+    movi.motoresFrente();
+  }
+
+  movi.motoresFrente();
+  delay(200);
+  movi.girarEsq90();
+  movi.motoresTras();
+  delay(90);
+
+  while(sensor.dirBranco()){
+    movi.motoresEsq(); //virar dir (depende do caso)
+  }
+
+  movi.motoresDir(); //virar esq (depende do caso)
+  delay(100);
+  seguirLinha();
+  */
+
+  //-------------------
   movi.girarDir();
   delay(300);
-  movi.motoresParem(); 
-  while(!sensor.pppp()){
-    movi.motoresTras();
- }
   movi.motoresParem();
-  while(sensor.ppbb()|| sensor.pppb()){
+  while (!sensor.pppp()) {
+    movi.motoresTras();
+  }
+  movi.motoresParem();
+  while (sensor.ppbb() || sensor.pppb()) {
     robo.acionarMotores(0, 50);
- }  
+  }
   movi.motoresFrente();
   delay(1200);
   movi.motoresEsq();
   delay(300);
-  robo.acionarMotores(35,35);
+  robo.acionarMotores(35, 35);
   delay(1400);
   movi.motoresEsq();
   delay(300);
-  while(sensor.bbbb()){
+  while (sensor.bbbb()) {
     movi.motoresFrente();
   }
   movi.motoresFrente();
@@ -83,17 +138,17 @@ void Estrategia::redutor() {//teste
 
   movi.superFrente();
   delay(300);
-  
+
   movi.motoresTras();
   delay(250);
-  
+
   movi.superFrente();
   delay(300);
 
   movi.motoresParem();
   delay(300);
 
-  while(!sensor.bbbb()){
+  while (!sensor.bbbb()) {
     movi.motoresFrente();
   }
   while (sensor.bbbb() || sensor.bbpp() || sensor.bbbp()) {
@@ -106,7 +161,7 @@ void Estrategia::executar() {
   if (sensor.viuObs()) {
     desviarObs();
   } else if (digitalRead(28) == LOW) {
-    redutor(); 
+    redutor();
   } else {
     seguirLinha();
   }

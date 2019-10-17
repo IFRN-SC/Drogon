@@ -24,3 +24,11 @@ void Movimento::girarEsq(){
 void Movimento::girarDir(){
   robo.acionarMotores(30,-30);
 }
+void Movimento::girarEsq90(){
+  robo.acionarMotores(-30,30);
+  delay(600); //testar esse delay
+}
+void Movimento::girarDir90(){
+  robo.acionarMotores(30,-30);
+  delay(600); //testar delay
+}
