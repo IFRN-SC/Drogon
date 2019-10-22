@@ -11,6 +11,7 @@ class Sensores: public Calibracao {
   public:
     #define DIST_SONAR 7;
     bool viuObs();
+    //bool viuRampa();
     
     bool maisDirBranco();
     bool maisEsqBranco();

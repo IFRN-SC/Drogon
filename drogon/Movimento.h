@@ -16,5 +16,6 @@ class Movimento{
     void girarDir();
     void girarEsq90();
     void girarDir90();
+    //void motoresRampa();
 };
 #endif

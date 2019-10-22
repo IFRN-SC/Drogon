@@ -52,7 +52,7 @@ void Estrategia::seguirLinha() {
 void Estrategia::desviarObs() {
   //testeee
   /*movi.motoresTras();
-  delay(150);
+  delay(50);
   movi.girarEsq90();
   movi.motoresFrente();
   delay(300);
@@ -105,6 +105,8 @@ void Estrategia::desviarObs() {
   */
 
   //-------------------
+  movi.motoresParem();
+  delay(300);
   movi.girarDir();
   delay(300);
   movi.motoresParem();
@@ -112,26 +114,26 @@ void Estrategia::desviarObs() {
     movi.motoresTras();
   }
   movi.motoresParem();
-  while (sensor.ppbb() || sensor.pppb()) {
+  /*while (sensor.ppbb() || sensor.pppb()) {
     robo.acionarMotores(0, 50);
-  }
+  }*/
   movi.motoresFrente();
-  delay(1200);
+  delay(1100);
   movi.motoresEsq();
-  delay(300);
+  delay(250);
   robo.acionarMotores(35, 35);
   delay(1400);
   movi.motoresEsq();
-  delay(300);
+  delay(240);
   while (sensor.bbbb()) {
     movi.motoresFrente();
   }
   movi.motoresFrente();
   delay(200);
   movi.motoresDir();
-  delay(300);
+  delay(310);
   movi.motoresTras();
-  delay(90);
+  delay(100);
 }
 void Estrategia::redutor() {//teste
   robo.ligarLed(1);

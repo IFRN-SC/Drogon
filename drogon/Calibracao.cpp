@@ -1,5 +1,4 @@
 #include "Calibracao.h"
-#include <Arduino.h>
 
 void Calibracao::tempo(){
 

@@ -3,7 +3,11 @@
 bool Sensores::viuObs(){
   return robo.lerSensorSonarFrontal() < DIST_SONAR;
 }
-
+/*bool Sensores::viuRampa(){
+  if(robo.botao1Pressionado()){
+    return true;
+  }
+}*/
 
 bool Sensores::maisDirBranco(){return robo.lerSensorLinhaMaisDir() > maisDir.getCinza();}
 bool Sensores::maisEsqBranco(){return robo.lerSensorLinhaMaisEsq() > maisEsq.getCinza();}

@@ -18,5 +18,6 @@ class Estrategia {
     void desviarObs();
     void redutor();
     void executar();  
+    void rampa();
 };
 #endif
